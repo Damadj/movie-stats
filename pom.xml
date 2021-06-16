@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dmj.movie.stats</groupId>
+    <artifactId>dmj-movie-stats-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+    <modules>
+        <module>Core</module>
+        <module>Common</module>
+        <module>SpringBootServer</module>
+        <module>PortRest</module>
+        <module>SpringBootWeb</module>
+        <module>AdapterRest</module>
+    </modules>
+
+    <name>MovieStats :: Parent</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <orika.version>1.4.6</orika.version>
+        <jdkVersion>1.8</jdkVersion>
+        <spring.data.jpa.version>2.3.2.RELEASE</spring.data.jpa.version>
+        <servlet.version>3.1.0</servlet.version>
+        <jackson.version>2.11.1</jackson.version>
+        <flyway.version>6.5.0</flyway.version>
+        <postgresql.version>42.2.5</postgresql.version>
+        <spring.version>5.2.8.RELEASE</spring.version>
+        <spring.boot.starter.version>2.3.2.RELEASE</spring.boot.starter.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${jdkVersion}</source>
+                    <target>${jdkVersion}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+        </dependency>
+    </dependencies>
+</project>

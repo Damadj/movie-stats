@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="header"/>
+	<f:metadata>
+		<f:event listener="#{msController.loadData}" type="preRenderView"/>
+	</f:metadata>
+    <ui:define name="body">
+		<h:form id="form" style="border: none; background: none">
+			<p:outputLabel value="Search" style="font-weight: bold;font-size: 150%"/>
+			<p:inputText value="#{msController.searchText}">
+				<f:ajax event="keyup" execute="@form" listener="#{msController.dynamicSearch}" render="ms_data"/>
+			</p:inputText>
+			<p:commandButton action="#{msController.search}" update="ms_data" value="Find All" icon="pi pi-search"/>
+			<p:commandButton action="#{msController.createMovie}" update="form_ms wv_ms_id" value="Add movie" icon="pi pi-plus"
+							 style="right: 30px;position: absolute"/>
+			<p:commandButton action="#{msController.countSummaryWatchTime}" update="form_count wv_count_id" value="Count total watch time" icon="pi pi-clock"/>
+			<p:dataScroller id="ms_data" value="#{msController.movies}" var="movie" mode="inline"
+							scrollHeight="850" style="border: none" rowIndexVar="#{movie.guid}">
+				<f:facet name="header">
+						<p:outputLabel value="Movie Statistics" style="font-size: 150%"/>
+				</f:facet>
+				<p:growl id="ms_msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+					<p:panelGrid columns="2" styleClass="top-panel">
+						<p:panelGrid columns="1">
+							<p:graphicImage url="#{movie.imageLink}" height="170" width="120"/>
+							<p:commandButton value="Update" icon="pi pi-pencil" action="#{msController.updateMovie(movie)}"
+											 update="form_ms ms_msgs wv_ms_id" style="width: 120px"/>
+							<p:commandButton value="Remove" icon="pi pi-trash" action="#{msController.removeMovie(movie)}"
+											 update="form" style="width: 120px"/>
+						</p:panelGrid>
+						<p:panelGrid columns="1" styleClass="top-panel">
+							<p:outputLabel readonly="true" value="#{movie.name}" style="font-weight: bold;font-size: 150%; width: 200px"/>
+							<p:separator style="border-color: dimgrey"/>
+							<p:panelGrid columns="2" styleClass="top-panel">
+								<p:outputLabel value="Watch date"/>
+								<p:outputLabel readonly="true" value="#{msController.convertToDate(movie.watchDate)}"/>
+								<p:outputLabel readonly="true" value="#{movie.genre}"/>
+								<p:outputPanel/>
+								<p:outputLabel value="Release year"/>
+								<p:outputLabel readonly="true" value="#{msController.convertToYears(movie.releaseDate)}"/>
+								<p:outputLabel value="Runtime"/>
+								<p:outputLabel readonly="true" value="#{movie.runtime}min / #{msController.convertToHours(movie.runtime)}"/>
+								<p:outputLabel value="Episodes" style="display: #{movie.series == true ? 'block' : 'none'}"/>
+								<p:outputLabel readonly="true" value="#{movie.episodes}" style="display: #{movie.series == true ? 'block' : 'none'}"/>
+							</p:panelGrid>
+						</p:panelGrid>
+					</p:panelGrid>
+				<p:separator style="border-color: dimgrey"/>
+			</p:dataScroller>
+		</h:form>
+		<ui:insert>
+			<ui:include src="ms/msDialog.xhtml"/>
+		</ui:insert>
+    </ui:define>
+</ui:composition>
+</html>

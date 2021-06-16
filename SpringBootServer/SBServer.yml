@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msserver
+  template:
+    metadata:
+      labels:
+        app: msserver
+    spec:
+      hostNetwork: true
+      containers:
+        - image: msserver:latest
+          name: msserver
+          imagePullPolicy: Never

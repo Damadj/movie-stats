@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: msweb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: msweb
+  template:
+    metadata:
+      labels:
+        app: msweb
+    spec:
+      hostNetwork: true
+      containers:
+        - image: msweb:latest
+          name: msweb
+          imagePullPolicy: Never

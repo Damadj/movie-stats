@@ -1,0 +1,88 @@
+.ui-growl {
+    left: 50%;
+}
+h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.ui-panelgrid .ui-panelgrid-cell {
+    vertical-align: middle;
+}
+
+.top-panel.ui-panelgrid .ui-panelgrid-cell {
+    vertical-align: top;
+}
+
+.doc-panel.ui-panelgrid tr td {
+    vertical-align: middle;
+}
+
+.doc-panel.ui-panelgrid tr td:nth-child(1)  {
+    width: 125px;
+    vertical-align: middle;
+}
+
+.movie-panel.ui-panelgrid tr td:nth-child(3)  {
+   text-align: right;
+}
+.movie-panel.ui-panelgrid-cell tr td:last-child {
+    width: 100%;
+}
+.ui-widget-content .ui-inputtext {
+    margin: 2px;
+}
+
+.selection-menu {
+    margin: 2px;
+}
+
+.error {
+    color: red;
+    display: none;
+}
+
+body .ui-calendar .ui-button.ui-button-icon-only {
+    width: 30px;
+    height: 30px;
+    margin-left: 2px;
+    vertical-align: bottom;
+}
+
+.ui-selectonemenu label.ui-selectonemenu-label {
+    min-width: 160px;
+}
+
+body .ui-dialog .ui-dialog-footer  {
+    text-align: center;
+    border: none;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.accept-panel.ui-panelgrid {
+    width: 100%;
+}
+
+.accept-panel.ui-panelgrid tr td:nth-child(1)  {
+    text-align: right;
+    padding: 5px 5px;
+}
+
+.accept-panel.ui-panelgrid tr td:nth-last-child  {
+    text-align: left;
+    padding: 5px 5px;
+}
+.qq.ui-panelgrid>*>tr,
+.qq.ui-panelgrid .ui-panelgrid-cell {
+    border: 1px black;
+}
+
+.ui-widget-content {
+    background: none;
+}
+
+
+/*.ui-dialog .ui-dialog-titlebar {*/
+/*    display: none;*/
+/*}*/

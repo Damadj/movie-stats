@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+
+	    http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="wv_ms_id" widgetVar="wv_ms" modal="true" closable="false" resizable="false">
+        <h:form id="form_ms">
+            <p:growl id="ms_modal_msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+            <p:panelGrid columns="2" styleClass="doc-panel">
+                <h:outputLabel value="Name" />
+                <p:inputText value="#{msController.selectedMovie.name}" style="min-width: 525px"/>
+            </p:panelGrid>
+            <p:panelGrid columns="4" styleClass="doc-panel">
+                <h:outputLabel value="Genre "/>
+                <p:selectOneMenu value="#{msController.selectedMovie.genre}" style="min-width: 170px">
+                    <f:selectItem itemLabel="" itemValue="NONE"/>
+                    <f:selectItem itemLabel="Action" itemValue="ACTION"/>
+                    <f:selectItem itemLabel="Thriller" itemValue="THRILLER"/>
+                    <f:selectItem itemLabel="Comedy" itemValue="COMEDY"/>
+                    <f:selectItem itemLabel="Romance" itemValue="ROMANCE"/>
+                    <f:selectItem itemLabel="Horror" itemValue="HORROR"/>
+                    <f:selectItem itemLabel="Historical" itemValue="HISTORICAL"/>
+                    <f:selectItem itemLabel="Fantasy" itemValue="FANTASY"/>
+                    <f:selectItem itemLabel="Science fiction" itemValue="SCIENCE_FICTION"/>
+                </p:selectOneMenu>
+                <h:outputLabel value="Runtime "/>
+                <p:inputText value="#{msController.selectedMovie.runtime}" style="min-width: 210px" placeholder="minutes"/>
+                <h:outputLabel value="Release date"/>
+                <p:datePicker value="#{msController.selectedMovie.releaseDate}" showIcon="true" yearNavigator="true"
+                            yearRange="1900:2100" view="month" readonlyInput="true" pattern="MM/yyyy"/>
+                <h:outputLabel value="Image link "/>
+                <p:inputText value="#{msController.selectedMovie.imageLink}" style="min-width: 210px"/>
+                <h:outputLabel value="When you watched the movie"/>
+                <p:datePicker value="#{msController.selectedMovie.watchDate}" showIcon="true" yearNavigator="true"
+                              yearRange="1900:2100" readonlyInput="true" pattern="dd.MM.yyyy"/>
+                <p:outputPanel/>
+                <p:outputPanel/>
+                <h:outputLabel value="Series"/>
+                <p:selectBooleanCheckbox value="#{msController.selectedMovie.series}">
+                    <f:ajax event="change" execute="@form" listener="#{msController.changeMovieSeries}" render="form_ms"/>
+                </p:selectBooleanCheckbox>
+                <h:outputLabel value="Episodes" style="display: #{msController.disabled == true ? 'none' : 'inline-block'}"/>
+                <p:inputText value="#{msController.selectedMovie.episodes}"
+                             style="min-width: 210px; display: #{msController.disabled == true ? 'none' : 'inline-block'}"/>
+            </p:panelGrid>
+            <p:panelGrid columns="2" style="position: relative; left: 35%" styleClass="accpet-panel">
+                <p:commandButton value="Принять" action="#{msController.saveMovie}" update="form ms_modal_msgs"/>
+                <p:commandButton value="Отмена" action="#{msController.refreshSeries}"/>
+            </p:panelGrid>
+        </h:form>
+    </p:dialog>
+
+    <p:dialog id="wv_count_id" widgetVar="wv_count" modal="true" closable="true" resizable="false">
+        <h:form id="form_count">
+            <p:outputLabel value="#{msController.count} min / #{msController.convertToHours(msController.count)}" style="font-size: 150%"/>
+        </h:form>
+    </p:dialog>
+
+    <p:confirmDialog styleClass="dialog-no-header" message="Are you sure you want to remove movie?" widgetVar="wv_confirm_del" closable="false" modal="true">
+        <p:commandButton value="Yes" action="#{msController.confirmRemoveMovie}" update="form" styleClass="button-confirmation-accept"/>
+        <p:commandButton value="No" onclick="PF('wv_confirm_del').hide()" type="button" styleClass="button-confirmation-deny"/>
+    </p:confirmDialog>
+
+</ui:composition>
+
+
